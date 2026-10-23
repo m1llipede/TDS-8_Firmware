@@ -9,14 +9,24 @@ What you get:
 - The track you select in Bitwig is highlighted on the TDS-8.
 - The Bridge's **Refresh** button re-pulls every name from Bitwig.
 
+## For Peter
+
+Peter, a few things we learned setting this up on Brian's machine:
+
+- **Bitwig won't detect the TDS-8 on its own.** It isn't a MIDI controller. The TDS-8 talks to the Bridge app, and this script sends Bitwig's track names to the Bridge over OSC. So nothing shows up in Bitwig's MIDI device lists, and you add it by hand (step 4 below).
+- **Restart Bitwig after copying the script in.** Bitwig looks for new scripts when it starts. The rescan button in Settings > Controllers only refreshes MIDI ports, so it won't find a script you just added.
+- **Use + Add Controller, not a MIDI dropdown.** The vendor list is in the window that opens from **+ Add Controller** at the bottom of the Controllers list. Pick **PlayOptix** as the hardware vendor and **TDS-8** as the product.
+- **Don't add a Generic controller.** "Generic MIDI Keyboard" or any other Generic entry is a MIDI controller and does nothing for the TDS-8. Remove it with its X.
+- **Where it stands:** the script is tested with the Bridge and a real TDS-8. Track names, renames, the selected track and the Refresh button all work. We haven't yet confirmed Bitwig itself loading the script. If **PlayOptix** isn't in the vendor list after a restart, tell Brian, and send a screenshot of the Add Controller window plus Bitwig's log file (`%LOCALAPPDATA%\Bitwig Studio\BitwigStudio.log` on Windows, `~/Library/Logs/Bitwig/BitwigStudio.log` on macOS).
+
 ## Setup
 
 1. **Install the TDS-8 Bridge** from [https://tds-8.com](https://tds-8.com) and plug in your TDS-8 with a USB **data** cable. A charge-only cable powers the unit, but the Bridge can't see it.
 2. **Copy `TDS-8.control.js`** from this folder into Bitwig's controller scripts folder:
    - Windows: `Documents\Bitwig Studio\Controller Scripts\`
    - macOS: `~/Documents/Bitwig Studio/Controller Scripts/`
-3. **Start the Bridge** before or after Bitwig; the order doesn't matter.
-4. In Bitwig, open **Settings > Controllers**, click **Add Controller**, choose **PlayOptix**, then **TDS-8**. There are no MIDI ports to pick.
+3. **Start the Bridge**, then **start (or restart) Bitwig** so it finds the new script.
+4. In Bitwig, click the Bitwig logo in the top bar, open **Settings > Controllers**, click **+ Add Controller** at the bottom of the list, set the hardware vendor to **PlayOptix** and the product to **TDS-8**, then click **Add**. There are no MIDI ports to pick.
 
 That's it. The TDS-8 displays fill in with your track names within a second.
 
